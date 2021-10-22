@@ -86,7 +86,7 @@ app.post('/api/notes',(request,response)=>{
 
 
 //El puerto 3000 y 3001 por lo general se encuentran vacios
-const PORT = 3001;
+const PORT= process.env.PORT || 3001
 app.listen(PORT , ()=>{
     console.log(`Server running on port ${PORT}`);
 });
