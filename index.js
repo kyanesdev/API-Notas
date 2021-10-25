@@ -13,7 +13,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(express.json());
-app.use(cors);
+app.use(cors());
 
 //REST es la idea de crear APIS escalables
 //API REST es la idea puesta en practica
