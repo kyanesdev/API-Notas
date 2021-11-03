@@ -26,7 +26,7 @@ let notes = [
     },
     {
       id: 2,
-      content: "preguntar Dni de mina",
+      content: "preguntar DNI",
       important: true
     },
     {
