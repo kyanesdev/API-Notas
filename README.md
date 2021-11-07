@@ -1,14 +1,12 @@
 # API-Notas
 Es una API de notas tanto de actividades cotidianas como notas de memoria.
 
-Tecnologias utilizadas:
+**Tecnologias utilizadas:**
 
 *Node.js + Express.js*
 
 *MongoDB + Mongoose*
+<br></br>
+**Patrón de diseño:**
 
-
-
-Patron de diseño:
-
-*MVC*
+*Modelo Vista Controlador (MVC)*
