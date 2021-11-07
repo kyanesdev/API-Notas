@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-const connectionString = "mongodb+srv://kyanesdev_user:adminkele@cluster0.elwqd.mongodb.net/notesDB?retryWrites=true&w=majority"
+var MONGO_DB = process.env.MONGO_DB_URI;
 
+//MONGO_DB.toString();
+const connectionString = MONGO_DB;
 mongoose.connect(connectionString)
   .then(() => {
     console.log('Connected database')

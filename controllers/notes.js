@@ -1,26 +1,10 @@
-//const http = require('http');
+require('../config/connection') //Me conecto a la base de datos
+const Note = require("../model/Node");
+const notesRoutes = require('express').Router();
 
-//Aca levantas el servidor y en la terminal para killearlo usas Ctrl+c
-// const app = http.createServer((request,response)=>{
-//     response.writeHead(200,{'Content-Type': 'text/plain'})
-//     response.end('Acabe de levantar el server :)');
-// })
-
-//Todo lo anterior lo realizas con express de esta forma
-
-require('./config/connection') //Me conecto a la base de datos
-const express = require('express');
-
-const app = express();
-const cors = require('cors');
-const Note = require("./model/Node");
-
-app.use(express.json());
-app.use(cors());
 
 //REST es la idea de crear APIS escalables
 //API REST es la idea puesta en practica
-
 let notes = [
     {
       id: 1,
@@ -40,15 +24,15 @@ let notes = [
   ]
 
 
-app.get('/',(request,response)=>{ //Recibe 2 parametros: 1ero la ruta y 2do lo que hace
+notesRoutes.get('/',(request,response)=>{ //Recibe 2 parametros: 1ero la ruta y 2do lo que hace
     response.send('<h1>Holis</h1>')
 }) 
 
-// app.get('/api/notes',(request,response)=>{
+// notesRoutes.get('/api/notes',(request,response)=>{
 //     response.json(notes);
 // })
 
-// app.get('/api/notes/:id',(request,response)=>{
+// notesRoutes.get('/api/notes/:id',(request,response)=>{
 //     const id = Number(request.params.id);
 //     const note = notes.find(note => note.id === id);
 
@@ -59,7 +43,7 @@ app.get('/',(request,response)=>{ //Recibe 2 parametros: 1ero la ruta y 2do lo q
 //     }
 // }) 
 
-app.delete('/api/notes/:id',(request,response)=>{
+notesRoutes.delete('/api/notes/:id',(request,response)=>{
     const id = Number(request.params.id);
     const note = notes.filter(note => note.id !==id);
     
@@ -72,7 +56,7 @@ app.delete('/api/notes/:id',(request,response)=>{
 })
 
 // //Este post lo usas cuando lo mandas en un arreglo
-// app.post('/api/notes',(request,response)=>{
+// notesRoutes.post('/api/notes',(request,response)=>{
 //     const note = request.body;
     
 //     const ids = notes.map(note => note.id)
@@ -90,7 +74,7 @@ app.delete('/api/notes/:id',(request,response)=>{
 // });
 
 //Metodos que funcionan con la base de datos
-app.post('/api/notes',(request,response)=>{
+notesRoutes.post('/',(request,response)=>{
     const note = request.body;
 
     if (!note.content) {
@@ -109,12 +93,12 @@ app.post('/api/notes',(request,response)=>{
         .then((saveNote)=>response.json(saveNote)); // Y con todo este metodo ya tendriamos una nota en la base de datos
 })
 
-app.get('/api/notes', (request,response)=>{
+notesRoutes.get('/', (request,response)=>{
     Note.find({})                       //Este find del mongoose tiene datos encapsulados, por lo tanto te devuelve una promesa y tenes que tratarla como tal.
         .then((allNotes)=>response.json(allNotes));
 })
 
-app.get('/api/notes/:id', (request,response)=>{ //Con el ":" definis variables
+notesRoutes.get('/:id', (request,response)=>{ //Con el ":" definis variables
     const {id} = request.params; //Me devuelve un dato en particular el params
     Note.findById(id)
         .then((note)=>{
@@ -126,8 +110,4 @@ app.get('/api/notes/:id', (request,response)=>{ //Con el ":" definis variables
         });
 })
 
-//El puerto 3000 y 3001 por lo general se encuentran vacios
-const PORT= process.env.PORT || 3001
-app.listen(PORT , ()=>{
-    console.log(`Server running on port ${PORT}`);
-});
+module.exports = notesRoutes;
