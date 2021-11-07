@@ -7,3 +7,8 @@ Tecnologias utilizadas:
 
 *MongoDB + Mongoose*
 
+
+
+Patron de diseño:
+
+*MVC*
